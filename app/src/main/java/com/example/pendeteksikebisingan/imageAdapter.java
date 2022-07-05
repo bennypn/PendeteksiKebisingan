@@ -1,9 +1,14 @@
 package com.example.pendeteksikebisingan;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,13 +16,16 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.type.DateTime;
 
+import java.io.InputStream;
+
 // FirebaseRecyclerAdapter is a class provided by
 // FirebaseUI. it provides functions to bind, adapt and show
 // database contents in a Recycler View
 public class imageAdapter extends FirebaseRecyclerAdapter<Image,imageAdapter.ImagesViewholder> {
 
     Long epochh;
-    protected static String date, Imagetv;
+    Float db1;
+    protected static String date, db, imageLink;
     public imageAdapter(
             @NonNull FirebaseRecyclerOptions<Image> options)
     {
@@ -35,7 +43,11 @@ public class imageAdapter extends FirebaseRecyclerAdapter<Image,imageAdapter.Ima
         epochh = model.getEpoch();
         date = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date (epochh*1000));
         // epochtv = Long.toString(model.getEpoch());
-        Imagetv = model.getLink();
+
+        imageLink = model.getLink();
+
+        db1 = model.getDb();
+        db = db1.toString();
 
         // Add firstname from model class (here
         // "Image.class")to appropriate view in Card
@@ -45,7 +57,9 @@ public class imageAdapter extends FirebaseRecyclerAdapter<Image,imageAdapter.Ima
         // Add lastname from model class (here
         // "Image.class")to appropriate view in Card
         // view (here "Image.xml")
-        holder.Image.setText(Imagetv);
+        holder.dbtv.setText(db);
+
+        new DownloadImageTask(holder.image).execute(imageLink);
 
     }
 
@@ -68,13 +82,40 @@ public class imageAdapter extends FirebaseRecyclerAdapter<Image,imageAdapter.Ima
     // view (here "Image.xml")
     class ImagesViewholder
             extends RecyclerView.ViewHolder {
-        TextView epoch, Image;
+        TextView epoch, dbtv;
+        ImageView image;
         public ImagesViewholder(@NonNull View itemView)
         {
             super(itemView);
 
             epoch = itemView.findViewById(R.id.epoch_tv);
-            Image = itemView.findViewById(R.id.link_iv);
+            dbtv = itemView.findViewById(R.id.db_tv);
+            image = itemView.findViewById(R.id.imageLink_iv);
+        }
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
         }
     }
 

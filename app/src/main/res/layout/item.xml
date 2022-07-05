@@ -1,54 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="210sp"
-    android:background="@drawable/status">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/epoch_tv"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="26/06/2022  14:20"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="@+id/link_iv"
-        app:layout_constraintStart_toStartOf="@+id/link_iv"
-        app:layout_constraintTop_toBottomOf="@+id/link_iv" />
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="top"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-1dp"
+        android:layout_marginEnd="-2dp"
+        android:backgroundTint="@color/pigeon">
 
-    <TextView
-        android:id="@+id/db_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="90"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="@+id/epoch_tv"
-        app:layout_constraintStart_toStartOf="@+id/epoch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/epoch_tv" />
+        <TextView
+            android:id="@+id/epoch_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:text="26/06/2022  14:20"
+            android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="db"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/db_tv"
-        app:layout_constraintStart_toEndOf="@+id/db_tv"
-        app:layout_constraintTop_toTopOf="@+id/db_tv" />
+        <TextView
+            android:id="@+id/db_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:text="90"
+            android:textColor="#000000" />
 
-    <ImageView
-        android:id="@+id/link_iv"
-        android:layout_width="198dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.195"
-        tools:srcCompat="@tools:sample/avatars" />
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/textView7"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginStart="5dp"-->
+        <!--                        android:text="db"-->
+        <!--                        android:textColor="#000000" />-->
+    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewImage"
+        android:layout_width="410dp"
+        android:layout_height="296dp"
+        android:layout_below="@+id/CardViewText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="1dp">
+
+        <ImageView
+            android:id="@+id/imageLink_iv"
+            android:layout_width="match_parent"
+            android:layout_height="187dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
